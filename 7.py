@@ -118,7 +118,7 @@ print('Matrix3')
 print(matrix3)
 
 print('Matrix3 is symmetrical?')
-print(matrix3.isSymmetrical())
+print(matrix2.isSymmetrical())
 
 print('Matrix2 is identity?')
 print(matrix2.isIdentity())
