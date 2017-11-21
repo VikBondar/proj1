@@ -15,14 +15,13 @@ class Matrix:
         Метод __init__ перегружает конструктор класса. 
         Конструктор - создание экземпляра класса.
         '''
-        print('We are in constructor')
         if elements != []:
             self.elements = elements
         elif random_value:
             self.elements = [[random.randint(1,10) for i in range(3)]for j in range(3)]
         else:
             self.elements = [[0,0,0],[0,0,0],[0,0,0]]
-
+        
     def print_matrix(self):
         '''
         Функция печатает введенную матрицу.
@@ -53,7 +52,6 @@ class Matrix:
             for j in range(len(matrix3.elements[i])):
                 matrix3.elements[i][j] = self.elements[i][j] - other_matrix.elements[i][j]
         return matrix3
-
     
     def isSymmetrical(self):
         '''
@@ -77,12 +75,6 @@ class Matrix:
                     return False
         return True    
     
-    
-    '''
-    def exponentiation(self):
-        
-        Функция, возводящая матрицу в степень.
-        '''
     def __mul__(self,other):
       result = Matrix()
       if type(other) == Matrix :
@@ -97,4 +89,42 @@ class Matrix:
               for j in range(len(self.elements[i])):
                   result.elements[i][j] = self.elements[i][j] * other
       return result
-        
+    
+    def __pow__(self, other):
+        '''
+        Функция, возводящая матрицу в степень. (x ** y, pow(x, y[, modulo])).
+        '''
+        result = Matrix()
+        if other==0:
+            pass
+        elif other== 1:
+            for i in range(len(self.elements)):
+                for j in range(len(self.elements[i])):
+                    result.elements[i][j] = self.elements[i][j]
+        else:
+            result = (self ** (other-1)) * self 
+        return result            
+
+matrix1 = Matrix(random_value=True)
+print('Matrix1')
+print(matrix1)
+
+matrix2 = Matrix([[1,0,0],[0,1,0],[0,0,1]])
+print('Matrix2')
+print(matrix2)
+
+matrix3 = matrix1 - matrix2
+print('Matrix3')
+print(matrix3)
+
+print('Matrix3 is symmetrical?')
+print(matrix3.isSymmetrical())
+
+print('Matrix2 is identity?')
+print(matrix2.isIdentity())
+
+n = int(input("Введите степень матрицы N: "))
+
+print('Matrix3 ** n')
+new_matr = matrix3**n 
+new_matr.print_matrix()
